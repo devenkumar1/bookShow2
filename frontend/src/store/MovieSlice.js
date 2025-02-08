@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const backend_url = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 export const getAllMovies=createAsyncThunk(
     "movies/getAllMovies",
     async(_,{rejectWithValue})=>{
         try{
-            const response=await axios.get("http://localhost:4000/auth/media/movies");
+            const response=await axios.get(`${backend_url}/auth/media/movies`);
             const data=response.data.movies;
             return data;
         }catch(error){
