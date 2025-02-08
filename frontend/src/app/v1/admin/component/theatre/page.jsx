@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 function TheatrePanel() {
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
   const [theatres, setTheatres] = useState([]);
 const navigate=useRouter();
   useEffect(() => {
@@ -17,7 +18,7 @@ const navigate=useRouter();
 
    const getAllTheatres = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/auth/admin/theatre/alltheatres");
+      const response = await axios.get(`${backend_url}/auth/admin/theatre/alltheatres`);
       const data = response.data.theatres;
       console.log("all theatres", data);
       setTheatres(data);
@@ -30,7 +31,7 @@ const handleEditTheatre = async(theatreId) => {
   
   console.log(`Edit theatre with ID: ${theatreId}`);
   try {
-    const response = await axios.put(`http://localhost:4000/auth/admin/theatre/update/${theatreId}`,{withCredentials: true});
+    const response = await axios.put(`${backend_url}/auth/admin/theatre/update/${theatreId}`,{withCredentials: true});
     toast.success("Theatre updated successfully!");
     getAllTheatres();
   } catch (error) {
@@ -44,7 +45,7 @@ const handleDeleteTheatre = async(theatreId) => {
   ///update/:id
   console.log(`Delete theatre with ID: ${theatreId}`);
   try {
-    const response = await axios.delete(`http://localhost:4000/auth/admin/theatre/delete/${theatreId}`,{withCredentials:true});
+    const response = await axios.delete(`${backend_url}/auth/admin/theatre/delete/${theatreId}`,{withCredentials:true});
     toast.success("Theatre deleted successfully!");
     getAllTheatres();
   } catch (error) {

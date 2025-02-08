@@ -9,6 +9,7 @@ import { setUserData } from '@/store/userSlice'
 import { toast } from 'react-toastify'
 
 function EditProfile() {
+    const backend_url = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
     const dispatch = useDispatch();
     const { userData } = useSelector((state) => state.user);
     const navigate = useRouter();
@@ -39,7 +40,7 @@ function EditProfile() {
             formData.append('profilePic', file);
 
             try {
-                const response = await axios.post("http://localhost:4000/auth/uploadProfilePic", formData, {
+                const response = await axios.post(`${backend_url}/auth/uploadProfilePic`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     },
@@ -62,7 +63,7 @@ function EditProfile() {
         if (!name || !phonenumber) return;
         const updateInfo = { name, phonenumber, profilePic };
         try {
-            const response = await axios.put("http://localhost:4000/auth/updateprofile", updateInfo, { withCredentials: true });
+            const response = await axios.put(`${backend_url}/auth/updateprofile`, updateInfo, { withCredentials: true });
             const result = await response.data.userData;
             dispatch(setUserData(result));
             if (result) {

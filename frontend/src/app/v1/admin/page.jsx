@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 function AdminPanel() {
+   const backend_url = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
    const [moviesCount, setMoviesCount] = useState('');
    const [theatreCount, setTheatreCount] = useState('');
    const [showsCount, setShowsCount] = useState('');
@@ -11,7 +12,7 @@ function AdminPanel() {
 
    const getDetails = async () => {
       try {
-         const response = await axios.get("http://localhost:4000/auth/admin/alldetails", { withCredentials: true });
+         const response = await axios.get(`${backend_url}/auth/admin/alldetails`, { withCredentials: true });
          const data = response.data;
          setMoviesCount(data.movies);
          setTheatreCount(data.theatres);

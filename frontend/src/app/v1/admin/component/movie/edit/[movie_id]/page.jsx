@@ -17,6 +17,7 @@ const dispatch=useDispatch();
     duration: '',
     language: ''
   });
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +29,7 @@ const dispatch=useDispatch();
 
   const fetchMovie = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/auth/movie/${movie_id}`);
+      const response = await axios.get(`${backend_url}/auth/movie/${movie_id}`);
       console.log("movie fetched response", response);
       dispatch(getAllMovies());
       const oneMovie = await response.data.Movie;
@@ -51,7 +52,7 @@ const dispatch=useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:4000/auth/admin/movie/update/${movie_id}`, movie, { withCredentials: true });
+      const response = await axios.put(`${backend_url}/auth/admin/movie/update/${movie_id}`, movie, { withCredentials: true });
       
       toast.success('Movie updated successfully!');
       navigate.push('/v1/admin/component/movie');

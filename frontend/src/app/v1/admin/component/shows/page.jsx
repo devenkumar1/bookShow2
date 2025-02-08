@@ -5,6 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 function ShowsPanel() {
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
   const navigate=useRouter();
   const [shows,setAllShows]=useState([]);
 
@@ -15,7 +16,7 @@ function ShowsPanel() {
 
   const getAllShows=async()=>{
     try {
-      const response=await axios.get("http://localhost:4000/auth/admin/show/allshows");
+      const response=await axios.get(`${backend_url}/auth/admin/show/allshows`);
       setAllShows(response.data.shows);
       console.log(response);
     } catch (error) {

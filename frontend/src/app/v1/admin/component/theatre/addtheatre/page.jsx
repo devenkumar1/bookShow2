@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 function AddTheatre() {
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
   const [states] = useState([
     "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat",
     "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra",
@@ -33,7 +34,7 @@ const navigate=useRouter();
 
     if (state) {
       try {
-        const response = await axios.get(`http://localhost:4000/auth/state/${state}`);
+        const response = await axios.get(`${backend_url}/auth/state/${state}`);
         // Set cities based on the response
         setCities(response.data.cities || []);
       } catch (error) {
@@ -57,7 +58,7 @@ const navigate=useRouter();
 const handleAddMovie=async(e)=>{
   e.preventDefault();
   try {
-    const response=await axios.post('http://localhost:4000/auth/admin/theatre/add',formData,{withCredentials:true});
+    const response=await axios.post(`${backend_url}/auth/admin/theatre/add`,formData,{withCredentials:true});
    
       toast.success("Theatre added successfully");
       

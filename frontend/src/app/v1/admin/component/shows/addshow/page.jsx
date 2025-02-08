@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 function AddShowPanel() {
     const dispatch = useDispatch();
     const { movies, loading } = useSelector((state) => state.movies);
+    const backend_url = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
     const [states] = useState([
         "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat",
@@ -47,7 +48,7 @@ function AddShowPanel() {
         try {
             
             console.log("The form data is", formData);
-            const response = await axios.post("http://localhost:4000/auth/admin/show/add", formData, { withCredentials: true });
+            const response = await axios.post(`${backend_url}/auth/admin/show/add`, formData, { withCredentials: true });
             console.log(response);
             toast.success("Show added successfully");
             navigate.push('/v1/admin/component/shows');
@@ -65,7 +66,7 @@ function AddShowPanel() {
 
         if (state) {
             try {
-                const response = await axios.get(`http://localhost:4000/auth/state/${state}`);
+                const response = await axios.get(`${backend_url}/auth/state/${state}`);
                 setCities(response.data.cities);
             } catch (error) {
                 setCities([]);
@@ -81,7 +82,7 @@ function AddShowPanel() {
 
         if (city) {
             try {
-                const response = await axios.get(`http://localhost:4000/auth/city/theatre/${city}`);
+                const response = await axios.get(`${backend_url}/auth/city/theatre/${city}`);
                 setTheatres(response.data.theatres);
             } catch (error) {
                 console.log('Error fetching theatres:', error);

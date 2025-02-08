@@ -18,7 +18,7 @@ function AddMovie() {
     const [releaseDate, setReleaseDate] = useState("");
     const [isMounted, setIsMounted] = useState(false);
     const dispatch = useDispatch();
-
+    const backend_url = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
     // Set isMounted to true once the component has mounted on the client
     useEffect(() => {
         setIsMounted(true);
@@ -43,7 +43,7 @@ function AddMovie() {
         }
 
         try {
-            const response = await axios.post("http://localhost:4000/auth/admin/movie/add",
+            const response = await axios.post(`${backend_url}/auth/admin/movie/add`,
                 formData,
                 { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
             );

@@ -8,6 +8,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 function MoviePanel() {
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
   const { movies, loading } = useSelector((state) => state.movies);
   const dispatch = useDispatch();
   const navigate = useRouter();
@@ -15,7 +16,7 @@ function MoviePanel() {
   const handleDeleteMovie = async (movieId) => {
     console.log(movieId);
     try {
-      const response = await axios.delete(`http://localhost:4000/auth/admin/movie/delete/${movieId}`, { withCredentials: true });
+      const response = await axios.delete(`${backend_url}/auth/admin/movie/delete/${movieId}`, { withCredentials: true });
       console.log(response);
       dispatch(getAllMovies());
       toast.success("Movie deleted successfully!");
