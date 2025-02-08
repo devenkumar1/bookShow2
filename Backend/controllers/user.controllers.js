@@ -34,9 +34,9 @@ export const userLogin = async (req, res) => {
     return res
       .cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production'?true:false,
+        secure: true,
         expiresIn: 30 * 24 * 60 * 60 * 1000,
-        sameSite: "Lax",
+        sameSite: "None",
       })
       .status(200)
       .json({ message: "login succesful", userData });
@@ -78,9 +78,9 @@ export const userSignup = async (req, res) => {
     return res
       .cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production'?true:false,
+        secure: true,
         expiresIn: 10 * 24 * 60 * 60 * 1000,
-        sameSite: "Lax",
+        sameSite: "None",
       })
       .status(201)
       .json({ userData, message: "signup successful" });
@@ -94,9 +94,9 @@ export const userLogout = async (req, res) => {
     // Set the cookie value to an empty string and expire the cookie immediately
     res.cookie("token", "", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production'?true:false,
+      secure:true,
       maxAge: 0, // Sets cookie expiration to immediate past time
-      sameSite: "Lax", // Make sure SameSite is set for cross-origin requests
+      sameSite: "None", // Make sure SameSite is set for cross-origin requests
     });
 
     return res.status(200).json({ message: "Logout successful" });
