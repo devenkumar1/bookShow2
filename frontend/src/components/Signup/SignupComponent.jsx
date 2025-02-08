@@ -66,7 +66,7 @@ function Signup() {
 
     if (isValid) {
       try {
-        const response = await axios.post("http://localhost:4000/auth/signup", formData, { withCredentials: true });
+        const response = await axios.post(`${backend_url}/auth/signup`, formData, { withCredentials: true });
         const result = await response.data.userData;
         dispatch(setUserData(result));
         if (result) {

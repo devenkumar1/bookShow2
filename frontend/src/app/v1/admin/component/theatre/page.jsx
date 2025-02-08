@@ -12,10 +12,6 @@ const navigate=useRouter();
     getAllTheatres();
   }, []);
 
-
-
-
-
    const getAllTheatres = async () => {
     try {
       const response = await axios.get(`${backend_url}/auth/admin/theatre/alltheatres`);
