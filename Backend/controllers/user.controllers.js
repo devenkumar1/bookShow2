@@ -139,7 +139,7 @@ export const updateUserProfile = async (req, res) => {
     }
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     console.log(decodedToken.id);
-    const currentUser = await user.findByIdAndUpdate(
+    const currentUser = await User.findByIdAndUpdate(
       decodedToken.id,
       { name, phonenumber },
       { new: true }
